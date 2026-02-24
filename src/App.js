@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 
 const skills = [
@@ -17,7 +18,7 @@ const experience = [
     highlights: [
       'Working on enterprise banking and legacy modernization initiatives.',
       'Developed architecture documentation from legacy applications and REST APIs.',
-      'Contributed to front-end delivery and client interaction for U.S. Bank projects.'
+      'At Nextera Energy, integrating our applications into client environments and handling configuration and infrastructure-level activities.'
     ]
   },
   {
@@ -54,23 +55,49 @@ const experience = [
 
 const projects = [
   {
-    name: 'BeyondCare (Australia)',
+    name: 'Nextera Energy (Cognizant)',
     summary:
-      'Team Lead. Built healthcare applications using React, Laravel 9, MySQL, Redis, Docker, and AWS.'
-  },
-  {
-    name: 'Fulcrum (UK)',
-    summary:
-      'Team Lead. Delivered project and construction management platform with React, Laravel, MySQL, Redis, and AWS.'
+      'Senior Software Engineer. Integrating internal applications at the client end and working on configuration and infrastructure-level implementation.'
   },
   {
     name: 'U.S. Bank (Cognizant)',
     summary:
-      'Front-End Developer. Built online banking portal features using React with Jira and GitLab workflow.'
+      'Senior Software Engineer. Worked on U.S. Bank Smart Rewards features, implementing customer-facing banking functionality.'
+  },
+  {
+    name: 'Cummins (Cognizant)',
+    summary:
+      'Senior Software Engineer. Analyzed legacy applications and REST APIs to create architecture documentation and support modernization planning.'
+  },
+  {
+    name: 'Beyondcare (Optisol)',
+    summary:
+      'Team Lead. Built healthcare-focused applications with React, Laravel 9, MySQL, Redis, Docker, and AWS services.'
+  },
+  {
+    name: 'Fulcrum (Optisol)',
+    summary:
+      'Team Lead. Delivered project and construction management platform with React, Laravel, MySQL, Redis, and AWS.'
+  },
+  {
+    name: 'Berighthere (Spinebiz)',
+    summary:
+      'Senior Software Engineer. Contributed to full-stack development, feature delivery, and client collaboration on business web applications.'
   }
 ];
 
 function App() {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const currentProject = projects[activeProjectIndex];
+
+  const showPrevProject = () => {
+    setActiveProjectIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  };
+
+  const showNextProject = () => {
+    setActiveProjectIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="profile-page">
       <main className="profile-shell">
@@ -82,7 +109,7 @@ function App() {
             <p className="kicker">Senior Software Engineer</p>
             <h1>Karthik V</h1>
             <p className="hero-summary">
-              Senior Software Engineer with 5+ years of IT experience across full-stack development, team leadership, and client interaction. Focused on scalable web applications using React, Laravel, Node.js, and AWS.
+              Senior Software Engineer with 6+ years of IT experience across full-stack development, team leadership, and client interaction. Focused on scalable web applications using React, Laravel, Node.js, and AWS.
             </p>
             <div className="hero-actions">
               <a href="mailto:veloukarthik@gmail.com">veloukarthik@gmail.com</a>
@@ -133,12 +160,28 @@ function App() {
 
         <section className="panel">
           <h2>Selected Projects</h2>
-          <div className="project-grid">
-            {projects.map((project) => (
-              <article key={project.name} className="project-card">
-                <h3>{project.name}</h3>
-                <p>{project.summary}</p>
+          <div className="project-slider">
+            <button className="slider-btn prev" onClick={showPrevProject} aria-label="Previous project">
+              ‹
+            </button>
+            <div className="project-card-wrap">
+              <article className="project-card">
+                <h3>{currentProject.name}</h3>
+                <p>{currentProject.summary}</p>
               </article>
+            </div>
+            <button className="slider-btn next" onClick={showNextProject} aria-label="Next project">
+              ›
+            </button>
+          </div>
+          <div className="slider-dots">
+            {projects.map((project, index) => (
+              <button
+                key={project.name}
+                className={`dot ${index === activeProjectIndex ? 'active' : ''}`}
+                onClick={() => setActiveProjectIndex(index)}
+                aria-label={`Show project ${index + 1}`}
+              />
             ))}
           </div>
         </section>

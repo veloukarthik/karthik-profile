@@ -168,17 +168,21 @@
   font: 500 0.92rem/1.45 'Archivo', sans-serif;
 }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
+.project-slider {
+  position: relative;
+}
+
+.project-card-wrap {
+  padding: 0 38px;
 }
 
 .project-card {
   border: 1px solid #3c2d29;
   border-radius: 12px;
-  padding: 14px;
+  padding: 18px;
   background: #191413;
+  min-height: 150px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
 }
 
 .project-card h3 {
@@ -189,6 +193,54 @@
 .project-card p {
   margin: 0;
   font: 500 0.9rem/1.45 'Archivo', sans-serif;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid #4a3731;
+  background: #1b1412;
+  color: var(--ink);
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font: 700 1rem/1 'Archivo', sans-serif;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.slider-btn:hover {
+  background: #2c201c;
+}
+
+.slider-btn.prev {
+  left: 0;
+}
+
+.slider-btn.next {
+  right: 0;
+}
+
+.slider-dots {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 0;
+  background: #4a3731;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #d9a692;
 }
 
 @keyframes enter {
@@ -216,4 +268,11 @@
     gap: 16px;
   }
 
+  .project-slider {
+    padding: 0;
+  }
+
+  .project-card-wrap {
+    padding: 0 34px;
+  }
 }
